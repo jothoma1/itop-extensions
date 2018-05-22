@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itop_design xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0">
+  <constants/>
+  <classes>
+	<class id="Location">
+      <!-- Define new fields -->
+      <!-- ***************** -->
+      <!-- Note: Refer to the XML Data Model Reference for type/mandatory tag info -->
+      <!--       https://wiki.openitop.org/doku.php?id=2_0_2:customization:xml_reference -->
+	  <methods>
+        <method id="DisplayBareRelations" _delta="define">
+          <static>false</static>
+          <access>public</access>
+          <type>Overload-cmdbAbstractObject</type>
+          <code><![CDATA[      public function DisplayBareRelations(WebPage $oPage, $bEditMode = false)
+        {
+                parent::DisplayBareRelations($oPage, $bEditMode);
+                if (!$bEditMode)
+                {
+                                $oPage->SetCurrentTab('Geolocalisation');
+                                $oPage->add('<div id="geoloc" style="width:100%;height:500px;">');
+                                $oPage->add('<iframe style="border:0;padding:0;margin:0;width:100%;height:500px;overflow:auto" ');
+                                $oPage->add('src="https://www.openstreetmap.org/export/embed.html?bbox='.$this->Get('longitude').'%2C'.$this->Get('latitude').'%2C'.$this->Get('longitude').'%2C'.$this->Get('latitude').'&amp;layer=mapnik&amp;marker='.$this->Get('latitude').'%2C'.$this->Get('longitude').'">');
+                                $oPage->add('</iframe></div>');
+                }
+        }  ]]></code>
+        </method>
+      </methods>
+	  <fields>
+        <field id="latitude" xsi:type="AttributeString" _delta="define">
+          <sql>latitude</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+	  </fields>
+	  <fields>
+		<field id="longitude" xsi:type="AttributeString" _delta="define">
+          <sql>longitude</sql>
+          <default_value/>
+          <is_null_allowed>true</is_null_allowed>
+        </field>
+      </fields>
+	  <!-- Presentation of new fields -->
+      <!-- ************************** -->
+      <!-- Note: Refer to itop-config-mgmt/datamodel.itop-config-mgmt.xml for col and rank info -->
+      <presentation>
+        <details>
+          <items>
+            <item id="latitude">
+              <rank>130</rank>
+            </item>
+          </items>
+        </details>
+      </presentation>
+
+      <presentation>
+        <details>
+          <items>
+            <item id="longitude">
+              <rank>140</rank>
+            </item>
+          </items>
+        </details>
+      </presentation>
+	</class>
+  </classes>
+  <menus/>
+  <user_rights>
+    <groups/>
+    <profiles/>
+  </user_rights>
+</itop_design>
